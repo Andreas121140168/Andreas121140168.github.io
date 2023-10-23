@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Halaman Tabel</title>
+</head>
+
+<body>
+    <div class="sidebar">
+        <a href="index.html">Halaman Awal</a>
+        <a href="form.html">Halaman Form</a>
+        <a class="active">Halaman Tabel</a>
+    </div>
+
+    <div class="content">
+        <header>
+            <h1>Data Fanbase Aero</h1>
+            <img src="logo1.png" alt="Logo Website" width="75px">
+        </header>
+
+        <div class="content table">
+
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; Andreas Sihotang | 121140168</p>
+    </footer>
+
+    <script>
+        const kontenTable = document.querySelector('.content.table')
+
+        async function fetchPesawat() {
+            let pesawat = [];
+            const dataPesawat = localStorage.getItem('pesawat');
+
+            if (dataPesawat) {
+                pesawat = JSON.parse(dataPesawat);
+            } else {
+                const pesawat = [
+                    {
+                        name: "A380",
+                        tipe: "WideBody",
+                        nationOrigin: "Europe",
+                        manufacturer: "Airbus",
+                        firstFlight:"2005",
+                        intro:"2007",
+                        status:"Aktif",
+                        primaryUser:"Emirates",
+                        produced:"2021",
+                        numberBuild:"254",
+                    },
+                    {
+                        name: "A340",
+                        tipe: "WideBody",
+                        nationOrigin: "Europe",
+                        manufacturer: "Airbus",
+                        firstFlight:"1991",
+                        intro:"1993",
+                        status:"Aktif",
+                        primaryUser:"Lufthansa",
+                        produced:"2012",
+                        numberBuild:"380",
+                    },
+                    {
+                        name: "B747-8",
+                        tipe: "WideBody",
+                        nationOrigin: "US",
+                        manufacturer: "Boeing",
+                        firstFlight:"2010",
+                        intro:"2011",
+                        status:"Aktif",
+                        primaryUser:"UPS",
+                        produced:"2023",
+                        numberBuild:"155",
+                    },
+                    {
+                        name: "B777X",
+                        tipe: "WideBody",
+                        nationOrigin: "US",
+                        manufacturer: "Boeing",
+                        firstFlight:"2020",
+                        intro:"2025 (planned)",
+                        status:"in Testing",
+                        primaryUser:"-",
+                        produced:"in Testing",
+                        numberBuild:"4",
+                    },
+                    {
+                        name: "DC-10",
+                        tipe: "WideBody",
+                        nationOrigin: "US",
+                        manufacturer: "McDonnell Douglas",
+                        firstFlight:"1970",
+                        intro:"1971",
+                        status:"Cargo",
+                        primaryUser:"FedEx",
+                        produced:"1989",
+                        numberBuild:"386",
+                    }
+                ];
+                localStorage.setItem('pesawat', JSON.stringify(pesawat));
+            
+            }
+            return pesawat;
+        }
+
+        async function PopulateTable() {
+            try {
+                const dataPesawat = await fetchPesawat();
+
+                const table = document.createElement('table');
+                const thead = document.createElement('thead');
+                const tbody = document.createElement('tbody');
+                const headerRow = document.createElement('tr');
+
+                for (const key in dataPesawat[0]) {
+                    const th = document.createElement('th');
+                    th.textContent = key;
+                    headerRow.appendChild(th);
+                }
+
+                thead.appendChild(headerRow);
+
+                dataPesawat.forEach(item => {
+                    const row = document.createElement('tr');
+                    for (const key in item) {
+                        const cell = document.createElement('td');
+                        cell.textContent = item[key];
+                        row.appendChild(cell);
+                    }
+                    tbody.appendChild(row);
+                });
+
+                table.appendChild(thead);
+                table.appendChild(tbody);
+
+                kontenTable.innerHTML = '';
+                kontenTable.appendChild(table);
+            } catch (error) {
+                console.error('Error', error);
+            }
+        }
+
+        PopulateTable();
+    </script>
+</body>
+
+</html>

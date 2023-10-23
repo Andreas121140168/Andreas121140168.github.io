@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Halaman Formulir</title>
+</head>
+
+<body>
+    <div class="sidebar">
+        <a href="index.html">Halaman Awal</a>
+        <a class="active">Halaman Form</a>
+        <a href="table.html">Halaman Tabel</a>
+    </div>
+
+    <div class="content">
+        <header>
+            <h1>Data Fanbase Aero</h1>
+            <img src="logo1.png" alt="Logo Website" width="75px">
+        </header>
+
+        <h2>Formulir Pendaftaran</h2>
+        <form id="form">
+            <label for="name">Nama:</label>
+            <input type="text" id="name" name="name" required><br>
+
+            <label for="tipe">Tipe:</label>
+            <input type="text" id="tipe" name="tipe" required><br>
+
+            <label for="nationOrigin">Negara Asal:</label>
+            <input type="text" id="nationOrigin" name="nationOrigin" required><br>
+
+            <label for="manufacturer">Pabrikan:</label>
+            <input type="text" id="manufacturer" name="manufacturer" required><br>
+            
+            <label for="firstFlight">Penerbangan Pertama:</label>
+            <input type="text" id="firstFlight" name="firstFlight" required><br>
+
+            <label for="intro">Diperkenalkan:</label>
+            <input type="text" id="intro" name="intro" required><br>
+
+            <label for="status">Status:</label>
+            <input type="text" id="status" name="status" required><br>
+
+            <label for="primaryUser">Pengguna Utama:</label>
+            <input type="text" id="primaryUser" name="primaryUser" required><br>
+
+            <label for="produced">Tahun Produksi:</label>
+            <input type="text" id="produced" name="produced" required><br>
+
+            <label for="numberBuild">Jumlah:</label>
+            <input type="text" id="numberBuild" name="numberBuild" required><br>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+
+    <footer>
+        <p>&copy; Andreas Sihotang | 121140168</p>
+    </footer>
+
+    <script>
+        const form = document.getElementById('form')
+        function postData() {
+            const nama = document.getElementById('name').value;
+            const tipe = document.getElementById('tipe').value;
+            const nationOrigin = document.getElementById('nationOrigin').value;
+            const manufacturer = document.getElementById('manufacturer').value;
+            const firstFlight = document.getElementById('firstFlight').value;
+            const intro = document.getElementById('intro').value;
+            const status = document.getElementById('status').value;
+            const primaryUser = document.getElementById('primaryUser').value;
+            const produced = document.getElementById('produced').value;
+            const numberBuild = document.getElementById('numberBuild').value;
+            
+
+            const pesawat = {
+                nama,
+                tipe,
+                nationOrigin,
+                manufacturer,
+                firstFlight,
+                intro,
+                status,
+                primaryUser,
+                produced,
+                numberBuild
+            };
+
+            let datapesawat = JSON.parse(localStorage.getItem('pesawat')) || [];
+            datapesawat.push(pesawat);
+            console.log(datapesawat);
+            localStorage.setItem('pesawat', JSON.stringify(datapesawat));
+            form.reset();
+        };
+
+        const submitButton = document.querySelector('button[type="submit"]');
+        submitButton.addEventListener('click', postData);
+    </script>
+</body>
+
+</html>
